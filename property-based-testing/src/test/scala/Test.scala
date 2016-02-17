@@ -69,9 +69,66 @@ class Test extends WordSpec with Matchers with GeneratorDrivenPropertyChecks {
 
 
     //"approximate 1/sqrt(n) within 0.01f" in {
+    //  forAll { n: Float ⇒
+    //    fastInvSqrt(n) should be ((1/Math.sqrt(n)) +- 0.01)
+    //  }
+    //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //"approximate 1/sqrt(n) within 0.01f" in {
     //  forAll(choose(0f, 360f)) { n ⇒
     //    fastInvSqrt(n) should be ((1/Math.sqrt(n)) +- 0.01)
     //  }
     //}
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //def sum(s: Int*): Int =
+  //  ???
+
+  //"string length" should {
+  //  "return length of arbitrary string" in {
+  //  }
+  //}
 }
