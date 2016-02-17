@@ -6,25 +6,22 @@ object ArbitraryExample extends App {
 
   case class Foo(i: Int, s: String, b: Boolean)
 
-  implicit val arbString: Arbitrary[String] = Arbitrary(Gen.alphaStr)
-
   implicit val arbHNil: Arbitrary[HNil] = Arbitrary(Gen.const(HNil))
 
-  implicit def arbHCons[H : Arbitrary, T <: HList : Arbitrary]: Arbitrary[H :: T] =
+  implicit def arbHCons[H, T <: HList]
+    (implicit arbH: Arbitrary[H], arbT: Arbitrary[T]): Arbitrary[H :: T] =
     Arbitrary {
       for {
-        h ← arbitrary[H]
-        t ← arbitrary[T]
+        h ← arbH.arbitrary
+        t ← arbT.arbitrary
       } yield h :: t
     }
 
-  implicit def arbCaseClass[A, L <: HList](implicit
-    gen: Generic.Aux[A, L],
-    arb: Arbitrary[L]
-  ): Arbitrary[A] =
+  implicit def arbCaseClass[A, L <: HList]
+    (implicit gen: Generic.Aux[A, L], arbL: Arbitrary[L]): Arbitrary[A] =
     Arbitrary {
       for {
-        l ← arbitrary[L]
+        l ← arbL.arbitrary
       } yield gen.from(l)
     }
 
